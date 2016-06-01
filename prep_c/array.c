@@ -1,15 +1,17 @@
+#include "stdio.h"
 
-int has_all_unique(char str[], int n) {
+void has_all_unique(char str[], int n) {
 	int i=0, j=0;
 	for (i=0; i<n;i++) {
 		for(j=i+1;j<n;j++) {
-			if(str[i]==str[j]) {
-				printf("%d,%d", i ,j);
-				return(0);	
+			if (str[i]==str[j]) {
+		        printf("Not all are unique");	
+                return;
 			}
 		}
 	}
-	return(1);
+	printf("all are unique");	
+
 }
 
 
@@ -48,10 +50,7 @@ void rotate(char matrix[10][10], int n) {
 
 void main() {
 	char str[10] = "abcdaerfgh";
-	if (has_all_unique(str, 9)) {
-		printf("all unique:Yes");
-	} else {
-		printf("all unique: No");
-	}
-	remove_all_dup(str,10);
+    has_all_unique(str,9);
+        
+    
 }
