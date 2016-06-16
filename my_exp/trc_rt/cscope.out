@@ -1,0 +1,936 @@
+cscope 15 $HOME/Documents/my_exp/trc_rt               0000004672
+	@main_trace_route.c
+
+1 
+	~"hódîs.h
+"
+
+3 
+	$maö
+(
+¨gc
+, *
+¨gv
+[])
+
+5 
+sock_ëh
+, 
+sock_icmp
+;
+
+6 
+ªt
+, 
+⁄e
+ = 1;
+
+7 
+u_öt8_t
+ 
+âl
+ = 1;
+
+8 
+buf_ö
+[
+MAX_MTU
+], 
+buf_out
+[MAX_MTU];
+
+9 
+h›_ù
+[20];
+
+10 
+ëhî_hódî
+ *
+ëh_hdr
+;
+
+11 
+ù
+ *
+ù_hdr_ö
+, *
+ù_hdr_out
+;
+
+12 
+icmp
+ *
+icmp_hdr_ö
+, *
+icmp_hdr_out
+;
+
+13 
+iÁddrs
+ *
+my_addr
+;
+
+14 
+sockaddr_ö
+ 
+d°
+, 
+§c
+, *
+§c_±r
+;
+
+15 
+ù_Àn
+, 
+icmp_Àn
+, 
+icmp_d©a_Àn
+;
+
+16 
+de°_ù
+[15], 
+§c_if
+[255], 
+§c_ù
+[15];
+
+18 
+sock_ëh
+ = 
+	`gë_ëh_sock
+();
+
+19 
+sock_icmp
+ = 
+	`gë_icmp_sock
+();
+
+21 i‡((
+ªt
+ = 
+	`£tsock›t
+(
+sock_icmp
+, 
+IPPROTO_IP
+, 
+IP_HDRINCL
+,
+
+22 (*)&
+⁄e
+, (one))) < 0) {
+
+23 
+	`≥º‹
+("setsockopt");
+
+24 
+	`exô
+(1);
+
+27 i‡(
+¨gv
+[1] =
+NULL
+ ||árgv[2] == NULL) {
+
+28 
+	`¥ötf
+("insufficientárguments\n");
+
+29 
+	`exô
+(1);
+
+31 
+	`mem£t
+(
+buf_ö
+, 0, 
+MAX_MTU
+);
+
+32 
+	`mem£t
+(
+buf_out
+, 0, 
+MAX_MTU
+);
+
+34 
+	`°∫˝y
+(
+de°_ù
+, 
+¨gv
+[1], 15);
+
+35 
+	`°∫˝y
+(
+§c_if
+, 
+¨gv
+[2], 
+	`°æí
+(argv[2]));
+
+40 
+ù_hdr_ö
+ = (
+ëhî_hódî
+ *)
+buf_ö
+;
+
+41 
+icmp_hdr_ö
+ = (
+icmp
+ *)(((*)
+ù_hdr_ö
+Ë+ (
+ù
+));
+
+43 
+ù_hdr_out
+ = (
+ù
+ *Ë
+buf_out
+;
+
+44 
+icmp_hdr_out
+ = (
+icmp
+ *Ë(((*)
+ù_hdr_out
+Ë+ (
+ù
+));
+
+50 
+my_addr
+ = 
+	`gë_ù_addr
+(
+¨gv
+[2]);
+
+51 
+	`°∫˝y
+(
+§c_ù
+, 
+¨gv
+[2], 15);
+
+53 
+	`¥ötf
+("SRC IP: %s\n", 
+§c_ù
+);
+
+58 
+ù_hdr_out
+->
+ù_§c
+.
+s_addr
+ = 
+	`öë_addr
+(
+§c_ù
+);
+
+59 
+	`bzîo
+(&
+§c
+, (src));
+
+60 
+§c
+.
+sö_Ámûy
+ = 
+AF_INET
+;
+
+61 
+§c
+.
+sö_addr
+.
+s_addr
+ = 
+ù_hdr_out
+->
+ù_§c
+.s_addr;
+
+62 i‡(
+	`böd
+(
+sock_icmp
+, (
+sockaddr
+ *)&
+§c
+,
+
+63 (
+sockaddr_ö
+)) < 0) {
+
+64 
+	`≥º‹
+("bind");
+
+65 
+	`exô
+(1);
+
+68 
+âl
+ <
+MAX_TTL
+-10) {
+
+70 
+ù_hdr_out
+->
+ù_v
+ = 0x4;
+
+71 
+ù_hdr_out
+->
+ù_hl
+ = ()((
+ù
+) / 4);
+
+72 
+ù_hdr_out
+->
+ù_tos
+ = 0;
+
+73 
+ù_hdr_out
+->
+ù_tos
+ = 0;
+
+74 
+ù_hdr_out
+->
+ù_Àn
+ = 
+	`ht⁄s
+((
+ù
+)
+
+75 + (
+icmp
+));
+
+76 
+ù_hdr_out
+->
+ù_id
+ = 0;
+
+77 
+ù_hdr_out
+->
+ù_off
+ = 0;
+
+78 
+ù_hdr_out
+->
+ù_âl
+ = 
+âl
+;
+
+79 
+ù_hdr_out
+->
+ù_p
+ = 
+IPPROTO_ICMP
+;
+
+80 
+ù_hdr_out
+->
+ù_sum
+ = 0;
+
+81 
+ù_hdr_out
+->
+ù_d°
+.
+s_addr
+ = 
+	`öë_addr
+(
+de°_ù
+);
+
+82 
+ù_hdr_out
+->
+ù_§c
+.
+s_addr
+ = 
+	`öë_addr
+(
+§c_ù
+);
+
+84 
+ù_hdr_out
+->
+ù_sum
+ = 
+	`ö_cksum
+((*)
+buf_out
+,
+
+85 
+ù_hdr_out
+->
+ù_hl
+);
+
+88 
+icmp_hdr_out
+->
+icmp_ty≥
+ = 8;
+
+89 
+icmp_hdr_out
+->
+icmp_code
+ = 0;
+
+90 
+icmp_hdr_out
+->
+icmp_cksum
+ = 0;
+
+91 
+icmp_hdr_out
+->
+icmp_id
+ = 0x435;
+
+92 
+icmp_hdr_out
+->
+icmp_£q
+ = 0;
+
+94 
+ù_Àn
+ = 
+	`¡ohs
+(
+ù_hdr_out
+->ip_len);
+
+95 
+icmp_Àn
+ = 
+ù_Àn
+ - (
+ùhdr
+);
+
+96 
+icmp_d©a_Àn
+ = 
+icmp_Àn
+ - (
+icmphdr
+);
+
+98 
+	`bzîo
+(&
+d°
+, (dst));
+
+99 
+d°
+.
+sö_Ámûy
+ = 
+AF_INET
+;
+
+100 
+d°
+.
+sö_addr
+.
+s_addr
+ = 
+ù_hdr_out
+->
+ù_d°
+.s_addr;
+
+102 
+	`mem£t
+(
+icmp_hdr_out
+->
+icmp_d©a
+, 0, 
+icmp_d©a_Àn
+);
+
+104 
+icmp_hdr_out
+->
+icmp_cksum
+ = 
+	`ö_cksum
+((
+
+105 *)
+icmp_hdr_out
+, 
+icmp_Àn
+);
+
+109 
+ªt
+ = 
+	`£ndto
+(
+sock_icmp
+, 
+buf_out
+, 
+ù_Àn
+, 0,
+
+110 (
+sockaddr
+ *)&
+d°
+, (dst));
+
+111 i‡(
+ªt
+ < 0) {
+
+112 
+	`≥º‹
+("sendto");
+
+118 
+ªt
+ = 
+	`ªcv
+(
+sock_icmp
+, 
+buf_ö
+, (buf_in), 0 );
+
+119 i‡(
+ªt
+ < 0) {
+
+120 
+	`≥º‹
+("recv");
+
+121 
+	`exô
+(1);
+
+124 
+	`¥ötf
+("%d. %s\n", 
+âl
+, 
+	`öë_¡ﬂ
+(
+ù_hdr_ö
+->
+ù_§c
+));
+
+128 
+âl
+++;
+
+129 i‡(
+icmp_hdr_ö
+->
+icmp_ty≥
+ == 0) {
+
+130 
+	`¥ötf
+("TRACE DONE!!!\n");
+
+131 
+	`exô
+(1);
+
+135 
+	}
+}
+
+	@util.c
+
+1 
+	~"hódîs.h
+"
+
+2 
+	~"globÆs.h
+"
+
+6 
+	$gë_ëh_sock
+() {
+
+7 
+sock_ëh
+;
+
+8 i‡((
+sock_ëh
+ = 
+	`sockë
+(
+PF_PACKET
+, 
+SOCK_RAW
+, 
+	`ht⁄s
+(
+ETH_P_ALL
+))) < 0) {
+
+9 
+	`≥º‹
+("socket");
+
+10 
+	`exô
+(1);
+
+12  
+sock_ëh
+;
+
+13 
+	}
+}
+
+17 
+	$gë_icmp_sock
+() {
+
+18 
+sock_icmp
+;
+
+19 i‡((
+sock_icmp
+ = 
+	`sockë
+(
+AF_INET
+, 
+SOCK_RAW
+, 
+IPPROTO_ICMP
+)) < 0) {
+
+20 
+	`≥º‹
+("socket");
+
+21 
+	`exô
+(1);
+
+23  
+sock_icmp
+;
+
+24 
+	}
+}
+
+27 
+iÁddrs
+ *
+
+28 
+	$gë_ù_addr
+(*
+if_«me
+)
+
+30 
+iÁddrs
+ *
+Æl_addrs
+, *
+tmp
+;
+
+32 i‡(
+	`gëiÁddrs
+(&
+Æl_addrs
+)<0 ) {
+
+33 
+	`≥º‹
+("getifaddrs");
+
+34 
+	`exô
+(1);
+
+36 
+tmp
+ = 
+Æl_addrs
+;
+
+37 
+tmp
+){
+
+38 i‡(!
+	`°rcmp
+(
+tmp
+->
+iÁ_«me
+, 
+if_«me
+)) {
+
+39  
+tmp
+;
+
+42 
+tmp
+ =Åmp->
+iÁ_√xt
+;
+
+44  (
+NULL
+);
+
+45 
+	}
+}
+
+47 
+	$ö_cksum
+(*
+addr
+, 
+Àn
+)
+
+49 
+∆e·
+ = 
+Àn
+;
+
+50 
+sum
+ = 0;
+
+51 *
+w
+ = 
+addr
+;
+
+52 
+™swî
+ = 0;
+
+54 
+∆e·
+ > 1) {
+
+55 
+sum
+ +*
+w
+++;
+
+56 
+∆e·
+ -= 2;
+
+58 i‡(
+∆e·
+ == 1) {
+
+59 *(*)(&
+™swî
+Ë*(*)
+w
+;
+
+60 
+sum
+ +
+™swî
+;
+
+63 
+sum
+ = (sum >> 16) + (sum & 0xffff);
+
+64 
+sum
+ += (sum >> 16);
+
+65 
+™swî
+ = ~
+sum
+;
+
+66  (
+™swî
+);
+
+67 
+	}
+}
+
+74 
+	$ö_cksum
+(*
+addr
+,
+Àn
+)
+
+76 
+sum
+ = 0;
+
+77 
+u_sh‹t
+ 
+™swî
+ = 0;
+
+78 
+u_sh‹t
+ *
+w
+ = 
+addr
+;
+
+79 
+∆e·
+ = 
+Àn
+;
+
+86 
+∆e·
+ > 1) {
+
+87 
+sum
+ +*
+w
+++;
+
+88 
+∆e·
+ -= 2;
+
+92 i‡(
+∆e·
+ == 1) {
+
+93 *(
+u_ch¨
+ *)(&
+™swî
+Ë*(u_ch¨ *)
+w
+ ;
+
+94 
+sum
+ +
+™swî
+;
+
+98 
+sum
+ = (sum >> 16) + (sum & 0xffff);
+
+99 
+sum
+ += (sum >> 16);
+
+100 
+™swî
+ = ~
+sum
+;
+
+101 (
+™swî
+);
+
+102 
+	}
+}
+
+	@
+1
+.
+1
+/usr/include
+2
+26
+main_trace_route.c
+util.c
