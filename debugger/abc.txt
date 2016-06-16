@@ -1,0 +1,26 @@
+Pthe value 2
+.Pthe value 3
+.lastname'
+p2
+S'rodd'
+p3
+sS'id'
+p4
+I2
+sS'firstname'
+p5
+S'sat'
+p6
+sb.(i__main__
+person
+p7
+(dp8
+g2
+S'world'
+p9
+sg4
+I3
+sg5
+S'hellow'
+p10
+sb.ub.oddqub.
