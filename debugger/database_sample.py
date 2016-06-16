@@ -1,9 +1,10 @@
 import sqlite3
 import readline
+import sys
 #---------------------------------------------
 #--All global initialization to be done here--
 #---------------------------------------------
-db = "example.db"
+db = "example1.db"
 cmd_tbl = "commands"
 inst_tbl = "instruction"
 prob_tbl = "problems"
@@ -19,9 +20,9 @@ def create_tables(conn):
     # create Commands table
     cursor.execute('''CREATE TABLE {} (id INTEGER PRIMARY KEY AUTOINCREMENT, cmd text)'''.format(cmd_tbl))
     # create Problems table
-    cursor.execute('''CREATE TABLE {} (id INTEGER PRIMARY KEY AUTOINCREMENT, prob text)'''.format(prob_tbl))
+    cursor.execute('''CREATE TABLE {} (id INTEGER PRIMARY KEY AUTOINCREMENT, prob text, reason INTEGER, FOREIGN KEY (reason) REFERENCES {}(id))'''.format(prob_tbl, inst_tbl))
     # create instructions table
-    cursor.execute('''CREATE TABLE {} (id INTEGER PRIMARY KEY AUTOINCREMENT, inst text)'''.format(inst_tbl))
+    cursor.execute('''CREATE TABLE {} (id INTEGER PRIMARY KEY AUTOINCREMENT, inst text, reason INTEGER, FOREIGN KEY (reason) REFERENCES {}(id))'''.format(inst_tbl, cmd_tbl))
 
 
 def ask_choice():
@@ -51,7 +52,13 @@ def get_new_cmd(conn):
 
 def insert_prob (conn, prob):
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO {}(prob) values (?)".format(prob_tbl), (prob,))
+    while x:
+        print "choose commands to help in reasoning."
+        show_inst_table();
+        print "0: exit"
+        ch_inst = raw_input("enter reason number from above");
+        if x == 0 : return
+        cursor.execute("INSERT INTO {}(prob) values (?)".format(prob_tbl), (prob,ch_inst,))
     conn.commit()
 
 def show_problem_table(conn):
@@ -70,7 +77,14 @@ def get_new_prob(conn):
 #-----------------------------------------------
 def insert_inst (conn, inst):
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO {}(inst) values (?)".format(inst_tbl), (inst,))
+    x = 1
+    while x:
+        print "choose commands to help in reasoning."
+        show_command_table();
+        print "0: exit"
+        ch_cmd = raw_input("enter command number from above");
+        if x == 0: return
+        cursor.execute("INSERT INTO {}(inst) values (?)".format(inst_tbl), (inst, ch_cmd,))
     conn.commit()
 
 def show_inst_table(conn):
@@ -121,6 +135,7 @@ while(x):
           "6) Show reasons\n" +
           "0) Exit")
     try:
+#    if(1):
         x = int(raw_input())
         if (MIN>x>MAX):
             print("Invalid entry")
@@ -128,7 +143,7 @@ while(x):
 
         handle_choice(x, conn)    
     except:
-        print("Somethings not right :(,\ncan you try again")
+        print("Somethings not right :(,\ncan you try again", sys.exc_info()[0])
         x = 1
 
 conn.close
